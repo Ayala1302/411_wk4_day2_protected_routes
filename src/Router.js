@@ -14,12 +14,8 @@ const checkAuth = () => {
 };
 
 // Write ProtectedRoute function here
-const ProtectedRoute = ({ component: Component }) => {
-  return (
-    <Route
-      render={() => (checkAuth() ? <Component /> : <Navigate to="/login" />)}
-    />
-  );
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  return checkAuth() ? <Component {...rest} /> : <Navigate to="/login" />;
 };
 
 const Router = () => {
@@ -32,5 +28,18 @@ const Router = () => {
     </Routes>
   );
 };
+
+// const Router = () => {
+//   return (
+//    <Routes>
+//     <Route element={<ProtectedRoutes />}>
+//      <Route exact path="/" element={<Home />} />
+//      <Route path="/about" element={<About />} />
+//      <Route path="/car/:id" element={<Car />} />
+//     </Route>
+//     <Route path="/login" element={<Login />} />
+//    </Routes>
+//   );
+//  };
 
 export default Router;
